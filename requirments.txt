@@ -1,0 +1,5 @@
+numpy==1.26.4
+pygame==2.5.2
+pyperclip==1.8.2
+screeninfo==0.8.1
+typing_extensions==4.11.0
