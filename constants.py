@@ -78,24 +78,25 @@ ATOM_DATA = [
 
 MOLECULE_NAME_MAP = {
         "H2O": "Vatten",
-        "CH4": "Mettan",
         "O2": "Syrgas",
         "O3": "Ozon",
         "NaCl": "Natriumklorid",
         "CO2": "Koldioxid",
         "CaCl2": "Kalciumklorid",
-        "C2H4": "Etan",
+        "CH4": "Mettan",
+        "C2H6": "Etan",
         "HCl": "Saltsyra",
         }
 
 MOLECULE_MAP = {
-    "H2O": {"atoms": ["H", "H", "O"], "bonds": [(0, 2), (1, 2)]},
-    "CH4": {"atoms": ["C", "H", "H", "H", "H"], "bonds": [(0, 1), (0, 2), (0, 3), (0, 4)]},
-    "O2": {"atoms": ["O", "O"], "bonds": [(0, 1)]},
-    "O3": {"atoms": ["O", "O", "O"], "bonds": [(0, 1), (1, 2)]},
-    "NaCl": {"atoms": ["Na", "Cl"], "bonds": [(0, 1)]},
-    "CO2": {"atoms": ["C", "O", "O"], "bonds": [(0, 1), (0, 2)]},
-    "CaCl2": {"atoms": ["Ca", "Cl", "Cl"], "bonds": [(0, 1), (0, 2)]},
-    "C2H4": {"atoms": ["C", "C", "H", "H", "H", "H"], "bonds": [(0, 1), (0, 2), (0, 3), (1, 4), (1, 5)]},
-    "HCl": {"atoms": ["H", "Cl"], "bonds": [(0, 1)]},
-}
+        "H2O": {"atoms": ["H", "H", "O"], "bonds": [(0, 2), (1, 2)]},
+        "CH4": {"atoms": ["C", "H", "H", "H", "H"], "bonds": [(0, 1), (0, 2), (0, 3), (0, 4)]},
+        "O2": {"atoms": ["O", "O"], "bonds": [(0, 1)]},
+        "O3": {"atoms": ["O", "O", "O"], "bonds": [(0, 1), (1, 2)]},
+        "NaCl": {"atoms": ["Na", "Cl"], "bonds": [(0, 1)]},
+        "CO2": {"atoms": ["C", "O", "O"], "bonds": [(0, 1), (0, 2)]},
+        "CaCl2": {"atoms": ["Ca", "Cl", "Cl"], "bonds": [(0, 1), (0, 2)]},
+        "C2H6": {"atoms": ["C", "C", "H", "H", "H", "H", "H", "H"], "bonds": [(0, 1), (0, 2), (0, 3), (0, 4), (1, 5), (1, 6), (1, 7)]},
+        "HCl": {"atoms": ["H", "Cl"], "bonds": [(0, 1)]},
+        "H2O2": {"atoms": ["H", "H", "O", "O"], "bonds": [(0, 2), (1, 3), (2, 3)]},
+        }

@@ -241,6 +241,16 @@ class Playground:
             message_text = self.game.font.render(self.game.message, True, Color.WHITE)
             self.game.screen.blit(message_text, (10, self.game.screen_height - 50))
 
+        if self.game.mode == "playground":
+            if self.game.bond_msg:
+                color = Color.WHITE
+                question_text = self.game.big_font.render(self.game.bond_msg, True, color)
+                question_rect = question_text.get_rect()
+                question_x = (self.game.screen_width - question_rect.width) // 2
+                question_y = 50 + 40  # 50 for the button height and 40 for the padding
+                self.game.screen.blit(question_text, (question_x, question_y))
+
+
 
 class Quiz(Playground):
     def __init__(self, game):
@@ -256,13 +266,17 @@ class Quiz(Playground):
         self.target_atoms = MOLECULE_MAP[self.target_molecule]['atoms']
         self.target_bonds = MOLECULE_MAP[self.target_molecule]['bonds']
         molecule_name = MOLECULE_NAME_MAP[self.target_molecule]
+        self.game.is_correct = False
         self.game.question = f"Bygg: {molecule_name} ({self.target_molecule})"
         self.game.clear_atoms()
 
     def draw(self):
         super().draw()
         if self.game.question:
-            question_text = self.game.font.render(self.game.question, True, Color.WHITE)
+            color = Color.CYAN
+            if self.game.is_correct:
+                color = Color.GREEN
+            question_text = self.game.big_font.render(self.game.question, True, color)
             question_rect = question_text.get_rect()
             question_x = (self.game.screen_width - question_rect.width) // 2
             question_y = 50 + 40  # 50 for the button height and 40 for the padding
@@ -277,6 +291,7 @@ class Quiz(Playground):
 class Game:
     def __init__(self):
         pygame.init()
+        self.big_font = pygame.font.SysFont(None, 30)
         self.font = pygame.font.SysFont(None, 24)
         self.small_font = pygame.font.SysFont(None, 18)
         self.screen_width = 800
@@ -286,6 +301,8 @@ class Game:
         self.running = True
         self.message = ""
         self.question = ""
+        self.bond_msg = ""
+        self.is_correct = False
         self.mode = "menu"
         self.menu = Menu(self)
         self.playground = Playground(self)
@@ -317,14 +334,20 @@ class Game:
 
     def check_molecule(self):
         if self.mode == "playground":
+            bond_msg = "Sådan existerar inte"
+
             for name, data in MOLECULE_MAP.items():
                 if self.is_molecule_formed(data['atoms'], data['bonds']):
-                    self.question = f"Byggd {MOLECULE_NAME_MAP[name]} ({name})!"
+                    print(name, MOLECULE_NAME_MAP[name])
+                    bond_msg = f"Byggd {MOLECULE_NAME_MAP[name]} ({name})!"
+            self.bond_msg = bond_msg
+
         elif self.mode == "quiz":
             if self.is_molecule_formed(self.quiz.target_atoms, self.quiz.target_bonds):
                 molecule = self.quiz.target_molecule
                 molecule_name = MOLECULE_NAME_MAP[molecule]
                 self.question = f"Korrekt byggd: {molecule_name} ({molecule})!"
+                self.is_correct = True
                 self.quiz.success_timestamp = time.time()
 
     def is_molecule_formed(self, atoms, bonds):
@@ -347,6 +370,7 @@ class Game:
             atom1 = self.atoms[bond[0]]
             atom2 = self.atoms[bond[1]]
             res = [bonded_atom == atom2 for bonded_atom, _, _ in atom1.bonds]
+            print(res)
             if any(res):
                 break
 
